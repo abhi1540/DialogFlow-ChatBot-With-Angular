@@ -1,0 +1,54 @@
+<div class="window_handler" #window_handler id="window_handler">
+  <div>
+    <button #minimise id = "minimise" (click)="toggle(minimise)"> _ </button>
+    <button #maximise id = "maximise" (click)="toggle(maximise)">  + </button>
+    <!-- <button id = "close" onclick="closeForm()" > x </button> -->
+</div>
+</div>
+<div class="chat_window"  #target id="target">
+   <div class="top_menu">
+
+    <div class="title h4">Covid19-GuideLine</div>
+  </div>
+  <div >
+
+  <ul class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <ng-container *ngFor="let message of messages | async">
+      <div  *ngIf="message.sentBy === 'bot'">
+        <li class="message left appeared">
+        <div class="avatar"></div>
+        <div class="text_wrapper left">
+          <div class="text" [ngClass]='{ "from": message.sentBy === "bot", "to": message.sentBy === "user"}'>
+          {{ message.content }}
+          </div>
+        </div>
+        </li>
+      </div>
+      <div *ngIf="message.sentBy === 'user'">
+        <li class="message right appeared">
+        <div class="avatar"></div>
+        <div class="text_wrapper right">
+          <div class="text" [ngClass]='{ "from": message.sentBy === "bot", "to": message.sentBy === "user"}'>
+          {{ message.content }}
+          </div>
+        </div>
+        </li>
+      </div>
+  </ng-container>
+</ul>
+
+  <div class="bottom_wrapper clearfix">
+  <div class="message_input_wrapper">
+  <input class=" message_input form-control form-control-lg" [(ngModel)]="formvalue" (keyup.enter)="sendMessage()" type="text"><br>
+  </div>
+</div>
+
+<!-- <button (keyup.enter)="sendMessage()"
+  mat-raised-button
+  color="primary"
+  type="submit" >Save Post</button> -->
+
+
+  <!-- <div>
+    <button name="Save" >Submit</button>
+   </div> -->
